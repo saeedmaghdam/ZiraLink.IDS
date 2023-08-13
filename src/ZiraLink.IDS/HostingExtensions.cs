@@ -128,6 +128,7 @@ internal static class HostingExtensions
             }
 
             var applicationDbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            applicationDbContext.Database.Migrate();
             if (!applicationDbContext.Users.Any())
             {
                 SeedData.EnsureSeedData(app as WebApplication);

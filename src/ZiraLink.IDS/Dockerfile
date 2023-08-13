@@ -23,4 +23,10 @@ RUN dotnet publish "ZiraLink.IDS.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+RUN apt-get update && apt-get install -y ca-certificates grep netcat-openbsd iputils-ping iproute2
+
+COPY certs/certificate.crt /usr/local/share/ca-certificates/custom-certificate.crt
+RUN update-ca-certificates
+
 ENTRYPOINT ["dotnet", "ZiraLink.IDS.dll"]

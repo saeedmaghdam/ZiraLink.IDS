@@ -80,7 +80,7 @@ internal static class HostingExtensions
         app.UseCors("AllowSpecificOrigins");
 
         InitializeDatabase(app);
-
+        
         app.UseStaticFiles();
         app.UseRouting();
         app.UseIdentityServer();

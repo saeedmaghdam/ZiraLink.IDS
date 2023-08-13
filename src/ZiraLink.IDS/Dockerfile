@@ -8,13 +8,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS restore
 WORKDIR /src
 COPY ["nuget.config", "."]
-COPY ["./src/UI/ZiraLink.IDS/ZiraLink.IDS.csproj", "./src/UI/ZiraLink.IDS/"]
-RUN dotnet restore "./src/UI/ZiraLink.IDS/ZiraLink.IDS.csproj"
+COPY ["./src/ZiraLink.IDS/ZiraLink.IDS.csproj", "./src/ZiraLink.IDS/"]
+RUN dotnet restore "./src/ZiraLink.IDS/ZiraLink.IDS.csproj"
 
 FROM restore AS build
 WORKDIR /src
 COPY ./src/ ./src/
-WORKDIR "./src/UI/ZiraLink.IDS"
+WORKDIR "./src/ZiraLink.IDS"
 RUN dotnet build "ZiraLink.IDS.csproj" -c Release -o /app/build
 
 FROM build AS publish

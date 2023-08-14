@@ -9,8 +9,8 @@ public static class Config
         new IdentityResource[]
         {
             new IdentityResources.OpenId(),
-
-            new IdentityResources.Profile() // For ui login
+            new IdentityResources.Profile(), // For ui login
+            new IdentityResources.Email(),
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>

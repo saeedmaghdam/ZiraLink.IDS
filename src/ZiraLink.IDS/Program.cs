@@ -24,10 +24,10 @@ try
 {
     builder.WebHost.ConfigureKestrel((context, serverOptions) =>
     {
-        serverOptions.Listen(IPAddress.Any, 80);
-        serverOptions.Listen(IPAddress.Any, 443, listenOptions =>
+        serverOptions.Listen(IPAddress.Any, 5000);
+        serverOptions.Listen(IPAddress.Any, 5001, listenOptions =>
         {
-            listenOptions.UseHttps("server.pfx", "test");
+            listenOptions.UseHttps("server.pfx", "zira_cert");
         });
     });
 

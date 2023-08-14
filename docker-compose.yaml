@@ -10,8 +10,8 @@ services:
     environment:
       ZIRALINK_CONNECTIONSTRINGS_MSSQL: Data Source=mssql,1433;Initial Catalog=ziralink;User ID=sa;Password=Abcd@123456
     ports:
-      - "5000:80"
-      - "5001:443"
+      - "5000:5000"
+      - "5001:5001"
     networks:
       - net
     depends_on:

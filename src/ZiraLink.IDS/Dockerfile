@@ -2,8 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS base
 WORKDIR /app
-EXPOSE 5000
-EXPOSE 5001
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS restore
 WORKDIR /src
@@ -31,5 +31,8 @@ COPY --from=publish /app/publish .
 
 #RUN apt-get update && apt-get install -y openssl
 #COPY certs/server.key certs/server.crt /etc/ssl/private/
+
+COPY certs/server.pfx /usr/local/share/ca-certificates/certificate.crt
+RUN update-ca-certificates
 
 ENTRYPOINT ["dotnet", "ZiraLink.IDS.dll"]

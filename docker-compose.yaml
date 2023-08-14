@@ -9,9 +9,13 @@ services:
       dockerfile: ./src/ZiraLink.IDS/Dockerfile
     environment:
       ZIRALINK_CONNECTIONSTRINGS_MSSQL: Data Source=mssql,1433;Initial Catalog=ziralink;User ID=sa;Password=Abcd@123456
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      ASPNETCORE_HTTPS_PORT: 443
+      ASPNETCORE_Kestrel__Certificates__Default__Password: zira_cert
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /app/server.pfx
     ports:
-      - "5000:5000"
-      - "5001:5001"
+      - "5000:80"
+      - "5001:443"
     networks:
       - net
     depends_on:
@@ -26,6 +30,11 @@ services:
       - "1533:1433"
     networks:
       - net
+    volumes:
+      - mssql-data:/var/opt/mssql
 
 networks:
-  net:      
+  net:
+
+volumes:
+  mssql-data: 

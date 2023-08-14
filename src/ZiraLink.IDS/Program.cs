@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Reflection;
 using Serilog;
 using ZiraLink.IDS;
 
@@ -22,15 +20,6 @@ builder.Host.UseSerilog();
 
 try
 {
-    builder.WebHost.ConfigureKestrel((context, serverOptions) =>
-    {
-        serverOptions.Listen(IPAddress.Any, 5000);
-        serverOptions.Listen(IPAddress.Any, 5001, listenOptions =>
-        {
-            listenOptions.UseHttps("server.pfx", "zira_cert");
-        });
-    });
-
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();

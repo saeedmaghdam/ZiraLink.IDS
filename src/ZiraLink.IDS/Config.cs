@@ -14,7 +14,7 @@ public static class Config
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
-        new List<ApiScope> { new ApiScope("api1") };
+        new List<ApiScope> { new ApiScope("ziralink"), new ApiScope(IdentityServerConstants.LocalApi.ScopeName) };
 
     public static IEnumerable<Client> Clients =>
     new List<Client>
@@ -36,8 +36,27 @@ public static class Config
             {
                 IdentityServerConstants.StandardScopes.OpenId,
                 IdentityServerConstants.StandardScopes.Profile,
-                "api1"
+                IdentityServerConstants.StandardScopes.Email,
+                IdentityServerConstants.StandardScopes.Phone,
+                IdentityServerConstants.StandardScopes.Address,
+                "ziralink"
             }
+        },
+        new Client
+        {
+            ClientId = "back",
+
+            // no interactive user, use the clientid/secret for authentication
+            AllowedGrantTypes = GrantTypes.ClientCredentials,
+
+            // secret for authentication
+            ClientSecrets =
+            {
+                new Secret("secret".Sha256())
+            },
+
+            // scopes that client has access to
+            AllowedScopes = { "ziralink", IdentityServerConstants.LocalApi.ScopeName }
         }
     };
 }

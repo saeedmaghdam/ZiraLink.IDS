@@ -6,6 +6,7 @@ using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using System.Reflection;
 using Microsoft.AspNetCore.HttpOverrides;
+using ZiraLink.IDS.Framework;
 
 namespace ZiraLink.IDS;
 
@@ -65,6 +66,8 @@ internal static class HostingExtensions
             options.KnownProxies.Clear();
         });
 
+        builder.Services.AddLocalApiAuthentication();
+
         return builder.Build();
     }
     
@@ -72,10 +75,11 @@ internal static class HostingExtensions
     {
         app.UseForwardedHeaders();
     
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
+        //if (app.Environment.IsDevelopment())
+        //{
+        //    app.UseDeveloperExceptionPage();
+        //}
+        app.UseErrorHandler();
 
         app.UseCors("AllowSpecificOrigins");
 
@@ -85,7 +89,9 @@ internal static class HostingExtensions
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();
-        
+
+        app.MapControllers()
+            .RequireAuthorization();
         app.MapRazorPages()
             .RequireAuthorization();
 

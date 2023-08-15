@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Duende.IdentityServer" Version="6.3.3" />
     <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.1.0" />
 
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.0" />
@@ -49,5 +50,17 @@
     <None Update="server.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\DbContext\ApplicationDbContextMigrations\" />
+    <Folder Include="Migrations\DbContext\ConfigurationDbContextMigrations\" />
+    <Folder Include="Migrations\DbContext\PersistedGrantDbContextMigrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

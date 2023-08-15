@@ -15,11 +15,13 @@ internal static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
+        var pathToExe = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? $"Data Source={Path.Combine(pathToExe, "database.db")}" : Environment.GetEnvironmentVariable("ZIRALINK_CONNECTIONSTRINGS_DB");
 
         builder.Services.AddRazorPages();
 
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(Environment.GetEnvironmentVariable("ZIRALINK_CONNECTIONSTRINGS_MSSQL")));
+        builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -32,13 +34,11 @@ internal static class HostingExtensions
         })
             .AddConfigurationStore(options =>
             {
-                options.ConfigureDbContext = b => b.UseSqlServer(Environment.GetEnvironmentVariable("ZIRALINK_CONNECTIONSTRINGS_MSSQL"),
-                    sql => sql.MigrationsAssembly(migrationsAssembly));
+                options.ConfigureDbContext = b => b.UseSqlite(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
             })
             .AddOperationalStore(options =>
             {
-                options.ConfigureDbContext = b => b.UseSqlServer(Environment.GetEnvironmentVariable("ZIRALINK_CONNECTIONSTRINGS_MSSQL"),
-                    sql => sql.MigrationsAssembly(migrationsAssembly));
+                options.ConfigureDbContext = b => b.UseSqlite(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
             })
             .AddAspNetIdentity<ApplicationUser>();
 

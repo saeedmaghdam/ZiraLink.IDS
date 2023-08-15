@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ZiraLink.IDS.Models;
 
@@ -9,6 +10,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var pathToExe = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
+        optionsBuilder.UseSqlite($"Data Source={System.IO.Path.Combine(pathToExe, "database.db")}");
     }
 
     protected override void OnModelCreating(ModelBuilder builder)

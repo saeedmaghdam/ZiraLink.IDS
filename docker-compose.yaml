@@ -8,33 +8,38 @@ services:
       context: ./
       dockerfile: ./src/ZiraLink.IDS/Dockerfile
     environment:
-      ZIRALINK_CONNECTIONSTRINGS_MSSQL: Data Source=mssql,1433;Initial Catalog=ziralink;User ID=sa;Password=Abcd@123456
-      ASPNETCORE_URLS: https://+:443;http://+:80
-      ASPNETCORE_HTTPS_PORT: 443
-      ASPNETCORE_Kestrel__Certificates__Default__Password: zira_cert
-      ASPNETCORE_Kestrel__Certificates__Default__Path: /app/server.pfx
+      ASPNETCORE_ENVIRONMENT: "Docker"
+      # ZIRALINK_CONNECTIONSTRINGS_DB: Data Source=mssql,1433;Initial Catalog=ziralink;User ID=sa;Password=Abcd@123456
+      ZIRALINK_CONNECTIONSTRINGS_DB: "Data Source=/app/data/database.db"
+      ASPNETCORE_URLS: "https://+:443;http://+:80"
+      ASPNETCORE_HTTPS_PORT: "443"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "zira_cert"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/app/server.pfx"
     ports:
       - "5000:80"
       - "5001:443"
     networks:
       - net
-    depends_on:
-      - mssql      
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: mssql-container
-    environment:
-      MSSQL_SA_PASSWORD: Abcd@123456
-      ACCEPT_EULA: Y
-    ports:
-      - "1533:1433"
-    networks:
-      - net
     volumes:
-      - mssql-data:/var/opt/mssql
+      - ziralink-data:/app/data
+    # depends_on:
+    #   - mssql      
+  # mssql:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: mssql-container
+  #   environment:
+  #     MSSQL_SA_PASSWORD: Abcd@123456
+  #     ACCEPT_EULA: Y
+  #   ports:
+  #     - "1533:1433"
+  #   networks:
+  #     - net
+  #   volumes:
+  #     - mssql-data:/var/opt/mssql
 
 networks:
   net:
 
 volumes:
-  mssql-data: 
+  # mssql-data: 
+  ziralink-data: 

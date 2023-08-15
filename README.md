@@ -1,36 +1,8 @@
-# Repository Template
+# Ziralink.IDS
 
-This repository is optimized for .NET projects.
-
-```
-+
-|
-|--- .editorconfig
-|--- .gitattributes
-|--- .gitignore
-|--- build.ps1
-|--- build.sh
-|--- artifacts
-|--- docs
-|--- lib
-|--- LICENSE
-|--- NuGet.Config
-|--- packages
-|--- README.md
-|--- samples
-|--- src
-|--- tests
-```
-
-Sample NuGet.Config:
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-	<config>
-  		<add key="repositoryPath" value=".\packages" />
-	</config>
-	<packageSources>
-		<add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-	</packageSources>
-</configuration>
+## Migrations:
+```sh
+Add-Migration {MIGRATION_NAME} -c ApplicationDbContext -o Migrations/DbContext/ApplicationDbContextMigrations
+Add-Migration {MIGRATION_NAME} -c PersistedGrantDbContext -o Migrations/DbContext/PersistedGrantDbContextMigrations
+Add-Migration {MIGRATION_NAME} -c ConfigurationDbContext -o Migrations/DbContext/ConfigurationDbContextMigrations
 ```

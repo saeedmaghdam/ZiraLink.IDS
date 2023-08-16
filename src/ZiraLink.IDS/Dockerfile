@@ -33,8 +33,11 @@ RUN apt-get update && apt-get install -y ca-certificates grep netcat-openbsd ipu
 #RUN apt-get update && apt-get install -y openssl
 #COPY certs/server.key certs/server.crt /etc/ssl/private/
 
-COPY ./certs/server.crt /usr/local/share/ca-certificates/ziralink.crt
-COPY ./certs/server.key /usr/local/share/ca-certificates/ziralink.key
+COPY ./certs/server.pfx /app/server.pfx
+
+COPY ./certs/ca.crt /usr/local/share/ca-certificates/ca.crt
+COPY ./certs/server.crt /usr/local/share/ca-certificates/server.crt
+COPY ./certs/server.key /usr/local/share/ca-certificates/server.key
 RUN update-ca-certificates
 
 ENTRYPOINT ["dotnet", "ZiraLink.IDS.dll"]

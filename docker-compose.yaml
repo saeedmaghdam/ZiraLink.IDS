@@ -11,13 +11,13 @@ services:
       ASPNETCORE_ENVIRONMENT: "Docker"
       # ZIRALINK_CONNECTIONSTRINGS_DB: Data Source=mssql,1433;Initial Catalog=ziralink;User ID=sa;Password=Abcd@123456
       ZIRALINK_CONNECTIONSTRINGS_DB: "Data Source=/app/data/database.db"
-      ASPNETCORE_URLS: "https://+:443;http://+:80"
-      ASPNETCORE_HTTPS_PORT: "443"
+      ASPNETCORE_URLS: "https://+:5001;http://+:5000"
+      ASPNETCORE_HTTPS_PORT: "5001"
       ASPNETCORE_Kestrel__Certificates__Default__Password: "zira_cert"
       ASPNETCORE_Kestrel__Certificates__Default__Path: "/app/server.pfx"
     ports:
-      - "5000:80"
-      - "5001:443"
+      - "5000:5000"
+      - "5001:5001"
     networks:
       - net
     volumes:

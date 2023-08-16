@@ -25,12 +25,12 @@ public static class Config
             ClientSecrets = { new Secret("secret".Sha256()) },
 
             AllowedGrantTypes = GrantTypes.Code,
-    
+
             // where to redirect to after login
-            RedirectUris = { "https://ot.api.kub.aghdam.nl/signin-oidc", "https://localhost:5212/signin-oidc" },
+            RedirectUris = { "https://api.ziralink.com:6001/signin-oidc", "https://localhost:5212/signin-oidc" },
 
             // where to redirect to after logout
-            PostLogoutRedirectUris = { "https://ot.api.kub.aghdam.nl/signout-callback-oidc", "https://localhost:5212/signout-callback-oidc" },
+            PostLogoutRedirectUris = { "https://api.ziralink.com:6001/signout-callback-oidc", "https://localhost:5212/signout-callback-oidc" },
 
             AllowedScopes = new List<string>
             {
@@ -56,7 +56,7 @@ public static class Config
             },
 
             // scopes that client has access to
-            AllowedScopes = { "ziralink", IdentityServerConstants.LocalApi.ScopeName }
+            AllowedScopes = { "ziralink", IdentityServerConstants.LocalApi.ScopeName, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.Email }
         }
     };
 }

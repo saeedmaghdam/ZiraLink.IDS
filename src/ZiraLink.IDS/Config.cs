@@ -16,69 +16,82 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new List<ApiScope> { new ApiScope("ziralink"), new ApiScope(IdentityServerConstants.LocalApi.ScopeName) };
 
-    public static IEnumerable<Client> Clients =>
-    new List<Client>
+    public static IEnumerable<Client> Clients
     {
-        new Client
+        get
         {
-            ClientId = "bff",
-            ClientSecrets = { new Secret("secret".Sha256()) },
+            var apiBaseUri = new Uri(Environment.GetEnvironmentVariable("ZIRALINK_API_URL"));
+            var apiSignInUri = new Uri(apiBaseUri, "signin-oidc");
+            var apiSignOutUri = new Uri(apiBaseUri, "signout-callback-oidc");
 
-            AllowedGrantTypes = GrantTypes.Code,
+            var clientBaseUri = new Uri(Environment.GetEnvironmentVariable("ZIRALINK_CLIENT_URL"));
+            var clientSignInUri = new Uri(apiBaseUri, "signin-oidc");
+            var clientSignOutUri = new Uri(apiBaseUri, "signout-callback-oidc");
 
-            // where to redirect to after login
-            RedirectUris = { "https://api.ziralink.com:6001/signin-oidc", "https://localhost:5212/signin-oidc" },
-
-            // where to redirect to after logout
-            PostLogoutRedirectUris = { "https://api.ziralink.com:6001/signout-callback-oidc", "https://localhost:5212/signout-callback-oidc" },
-
-            AllowedScopes = new List<string>
+            return new List<Client>
             {
-                IdentityServerConstants.StandardScopes.OpenId,
-                IdentityServerConstants.StandardScopes.Profile,
-                IdentityServerConstants.StandardScopes.Email,
-                IdentityServerConstants.StandardScopes.Phone,
-                IdentityServerConstants.StandardScopes.Address,
-                "ziralink"
-            }
-        },
-        new Client
-        {
-            ClientId = "back",
+                new Client
+                {
+                    ClientId = "bff",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
 
-            // no interactive user, use the clientid/secret for authentication
-            AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.Code,
 
-            // secret for authentication
-            ClientSecrets =
-            {
-                new Secret("secret".Sha256())
-            },
+                    // where to redirect to after login
+                    RedirectUris = { apiSignInUri.ToString(), "https://localhost:5212/signin-oidc" },
 
-            // scopes that client has access to
-            AllowedScopes = { "ziralink", IdentityServerConstants.LocalApi.ScopeName, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.Email }
-        },
-        new Client
-        {
-            ClientId = "client",
-            ClientSecrets = { new Secret("secret".Sha256()) },
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { apiSignOutUri.ToString(), "https://localhost:5212/signout-callback-oidc" },
 
-            AllowedGrantTypes = GrantTypes.Code,
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Phone,
+                        IdentityServerConstants.StandardScopes.Address,
+                        "ziralink"
+                    }
+                },
+                new Client
+                {
+                    ClientId = "back",
 
-            // where to redirect to after login
-            RedirectUris = { "https://client.ziralink.com:8001/signin-oidc" },
+                    // no interactive user, use the clientid/secret for authentication
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-            // where to redirect to after logout
-            PostLogoutRedirectUris = { "https://client.ziralink.com:8001/signout-callback-oidc" },
+                    // secret for authentication
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
 
-            AllowedScopes = new List<string>
-            {
-                IdentityServerConstants.StandardScopes.OpenId,
-                IdentityServerConstants.StandardScopes.Profile,
-                IdentityServerConstants.StandardScopes.Email,
-                IdentityServerConstants.StandardScopes.Phone,
-                IdentityServerConstants.StandardScopes.Address
-            }
-        },
-    };
+                    // scopes that client has access to
+                    AllowedScopes = { "ziralink", IdentityServerConstants.LocalApi.ScopeName, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.Email }
+                },
+                new Client
+                {
+                    ClientId = "client",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+
+                    // where to redirect to after login
+                    RedirectUris = { clientSignInUri.ToString() },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { clientSignOutUri.ToString() },
+
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Phone,
+                        IdentityServerConstants.StandardScopes.Address
+                    }
+                },
+            };
+        }
+    }
 }

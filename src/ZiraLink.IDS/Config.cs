@@ -57,6 +57,28 @@ public static class Config
 
             // scopes that client has access to
             AllowedScopes = { "ziralink", IdentityServerConstants.LocalApi.ScopeName, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.Email }
-        }
+        },
+        new Client
+        {
+            ClientId = "client",
+            ClientSecrets = { new Secret("secret".Sha256()) },
+
+            AllowedGrantTypes = GrantTypes.Code,
+
+            // where to redirect to after login
+            RedirectUris = { "https://client.ziralink.com:8001/signin-oidc" },
+
+            // where to redirect to after logout
+            PostLogoutRedirectUris = { "https://client.ziralink.com:8001/signout-callback-oidc" },
+
+            AllowedScopes = new List<string>
+            {
+                IdentityServerConstants.StandardScopes.OpenId,
+                IdentityServerConstants.StandardScopes.Profile,
+                IdentityServerConstants.StandardScopes.Email,
+                IdentityServerConstants.StandardScopes.Phone,
+                IdentityServerConstants.StandardScopes.Address
+            }
+        },
     };
 }

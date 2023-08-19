@@ -12,12 +12,12 @@ namespace ZiraLink.IDS;
 
 internal static class HostingExtensions 
 {
-    public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
+    public static WebApplication ConfigureServices(this WebApplicationBuilder builder, IConfiguration configuration)
     {
         var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
         var pathToExe = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
-        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        var connectionString = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? $"Data Source={Path.Combine(pathToExe, "database.db")}" : Environment.GetEnvironmentVariable("ZIRALINK_CONNECTIONSTRINGS_DB");
+        var environment = configuration["ASPNETCORE_ENVIRONMENT"];
+        var connectionString = configuration["ASPNETCORE_ENVIRONMENT"] == "Development" ? $"Data Source={Path.Combine(pathToExe, "database.db")}" : configuration["ZIRALINK_CONNECTIONSTRINGS_DB"];
 
         builder.Services.AddRazorPages();
 
@@ -71,7 +71,7 @@ internal static class HostingExtensions
         return builder.Build();
     }
     
-    public static WebApplication ConfigurePipeline(this WebApplication app)
+    public static WebApplication ConfigurePipeline(this WebApplication app, IConfiguration configuration)
     {
         app.UseForwardedHeaders();
     
@@ -83,7 +83,7 @@ internal static class HostingExtensions
 
         app.UseCors("AllowSpecificOrigins");
 
-        InitializeDatabase(app);
+        InitializeDatabase(app, configuration);
         
         app.UseStaticFiles();
         app.UseRouting();
@@ -98,7 +98,7 @@ internal static class HostingExtensions
         return app;
     }
 
-    private static void InitializeDatabase(IApplicationBuilder app)
+    private static void InitializeDatabase(IApplicationBuilder app, IConfiguration configuration)
     {
         using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
         {
@@ -108,7 +108,7 @@ internal static class HostingExtensions
             context.Database.Migrate();
             if (!context.Clients.Any())
             {
-                foreach (var client in Config.Clients)
+                foreach (var client in Config.GetClients(configuration))
                 {
                     context.Clients.Add(client.ToEntity());
                 }

@@ -23,8 +23,8 @@ public static class Config
         var apiSignOutUri = new Uri(apiBaseUri, "signout-callback-oidc");
 
         var clientBaseUri = new Uri(configuration["ZIRALINK_CLIENT_URL"]);
-        var clientSignInUri = new Uri(apiBaseUri, "signin-oidc");
-        var clientSignOutUri = new Uri(apiBaseUri, "signout-callback-oidc");
+        var clientSignInUri = new Uri(clientBaseUri, "signin-oidc");
+        var clientSignOutUri = new Uri(clientBaseUri, "signout-callback-oidc");
 
         return new List<Client>
         {

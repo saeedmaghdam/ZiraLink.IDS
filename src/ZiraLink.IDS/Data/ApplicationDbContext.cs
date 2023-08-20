@@ -12,11 +12,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var pathToExe = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
-        optionsBuilder.UseSqlite($"Data Source={System.IO.Path.Combine(pathToExe, "database.db")}");
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    var pathToExe = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
+    //    optionsBuilder.UseSqlite($"Data Source={System.IO.Path.Combine(pathToExe, "database.db")}");
+    //}
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

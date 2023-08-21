@@ -36,10 +36,10 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.Code,
 
                 // where to redirect to after login
-                RedirectUris = { apiSignInUri.ToString(), "https://localhost:5212/signin-oidc" },
+                RedirectUris = { apiSignInUri.ToString() },
 
                 // where to redirect to after logout
-                PostLogoutRedirectUris = { apiSignOutUri.ToString(), "https://localhost:5212/signout-callback-oidc" },
+                PostLogoutRedirectUris = { apiSignOutUri.ToString() },
 
                 AllowedScopes = new List<string>
                 {

@@ -42,18 +42,6 @@ internal static class HostingExtensions
             })
             .AddAspNetIdentity<ApplicationUser>();
 
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy("AllowSpecificOrigins",
-                builder =>
-                {
-                    builder.WithOrigins("http://localhost:3000", "https://localhost:3000")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials()
-                        .Build();
-                });
-        });
 
         builder.Services.Configure<ForwardedHeadersOptions>(options =>
         {
@@ -80,8 +68,6 @@ internal static class HostingExtensions
         //    app.UseDeveloperExceptionPage();
         //}
         app.UseErrorHandler();
-
-        app.UseCors("AllowSpecificOrigins");
 
         InitializeDatabase(app, configuration);
         

@@ -5,10 +5,13 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        //"ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=localhost;Initial Catalog=ziralink;User ID=sa;Password=Abcd@123456",
         "ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=database.db",
         "ZIRALINK_API_URL": "https://api.ziralink.local:6001",
-        "ZIRALINK_CLIENT_URL": "https://client.ziralink.local:8001"
+        "ZIRALINK_CLIENT_URL": "https://client.ziralink.local:8001",
+        "ASPNETCORE_URLS": "https://ids.ziralink.local:5001",
+        "ASPNETCORE_HTTPS_PORT": "5001",
+        "ASPNETCORE_Kestrel__Certificates__Default__Password": "zira_cert",
+        "ASPNETCORE_Kestrel__Certificates__Default__Path": "server.pfx"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     },
@@ -25,9 +28,13 @@
       "launchUrl": "https://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "https://localhost:5001",
-        //"ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=localhost;Initial Catalog=ziralink;User ID=sa;Password=Abcd@123456",
-        "ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=database.db"
+        "ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=database.db",
+        "ZIRALINK_API_URL": "https://api.ziralink.local:6001",
+        "ZIRALINK_CLIENT_URL": "https://client.ziralink.local:8001",
+        "ASPNETCORE_URLS": "https://ids.ziralink.local:5001",
+        "ASPNETCORE_HTTPS_PORT": "5001",
+        "ASPNETCORE_Kestrel__Certificates__Default__Password": "zira_cert",
+        "ASPNETCORE_Kestrel__Certificates__Default__Path": "server.pfx"
       },
       "distributionName": ""
     }

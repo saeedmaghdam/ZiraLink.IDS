@@ -1,6 +1,0 @@
-2023-08-20 09:20:50.213 +02:00 [INF] Starting Duende IdentityServer version 6.3.3+4b4117844553d1ce52966e37734f2b7cd285de89 (.NET 6.0.15)
-2023-08-20 09:20:50.287 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
-2023-08-20 09:20:50.294 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer
-2023-08-20 09:21:03.639 +02:00 [INF] Starting Duende IdentityServer version 6.3.3+4b4117844553d1ce52966e37734f2b7cd285de89 (.NET 6.0.15)
-2023-08-20 09:21:03.748 +02:00 [WRN] You do not have a valid license key for the Duende software. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please start a conversation with us: https://duendesoftware.com/contact
-2023-08-20 09:21:03.757 +02:00 [INF] Using the default authentication scheme Identity.Application for IdentityServer

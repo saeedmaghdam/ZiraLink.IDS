@@ -26,7 +26,7 @@ public static class Config
         var clientSignInUri = new Uri(clientBaseUri, "signin-oidc");
         var clientSignOutUri = new Uri(clientBaseUri, "signout-callback-oidc");
 
-        return new List<Client>
+        var clients = new List<Client>
         {
             new Client
             {
@@ -54,15 +54,10 @@ public static class Config
             new Client
             {
                 ClientId = "back",
+                ClientSecrets = { new Secret("secret".Sha256()) },
 
                 // no interactive user, use the clientid/secret for authentication
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
-
-                // secret for authentication
-                ClientSecrets =
-                {
-                    new Secret("secret".Sha256())
-                },
 
                 // scopes that client has access to
                 AllowedScopes = { "ziralink", IdentityServerConstants.LocalApi.ScopeName, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.Email }
@@ -88,7 +83,30 @@ public static class Config
                     IdentityServerConstants.StandardScopes.Phone,
                     IdentityServerConstants.StandardScopes.Address
                 }
-            },
+            }
         };
+
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Test")
+        {
+            clients.Add(new Client
+            {
+                ClientId = "test",
+                ClientSecrets = { new Secret("secret".Sha256()) },
+
+                AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+
+                AllowedScopes = new List<string>
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    IdentityServerConstants.StandardScopes.Email,
+                    IdentityServerConstants.StandardScopes.Phone,
+                    IdentityServerConstants.StandardScopes.Address,
+                    "ziralink"
+                }
+            });
+        }
+
+        return clients;
     }
 }

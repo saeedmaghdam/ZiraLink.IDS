@@ -7,10 +7,12 @@ using Duende.IdentityServer.EntityFramework.Mappers;
 using System.Reflection;
 using Microsoft.AspNetCore.HttpOverrides;
 using ZiraLink.IDS.Framework;
+using System.Net;
+using System.Net.Security;
 
 namespace ZiraLink.IDS;
 
-internal static class HostingExtensions 
+internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder, IConfiguration configuration)
     {
@@ -18,6 +20,21 @@ internal static class HostingExtensions
         var pathToExe = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
         var environment = configuration["ASPNETCORE_ENVIRONMENT"];
         var connectionString = configuration["ASPNETCORE_ENVIRONMENT"] == "Development" ? $"Data Source={Path.Combine(pathToExe, "database.db")}" : configuration["ZIRALINK_CONNECTIONSTRINGS_DB"];
+
+        if (configuration["ASPNETCORE_ENVIRONMENT"] == "Test")
+        {
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
+            {
+                string expectedThumbprint = "10CE57B0083EBF09ED8E53CF6AC33D49B3A76414";
+                if (certificate!.GetCertHashString() == expectedThumbprint)
+                    return true;
+
+                if (sslPolicyErrors == SslPolicyErrors.None)
+                    return true;
+
+                return false;
+            };
+        }
 
         builder.Services.AddRazorPages();
 
@@ -58,11 +75,11 @@ internal static class HostingExtensions
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app, IConfiguration configuration)
     {
         app.UseForwardedHeaders();
-    
+
         //if (app.Environment.IsDevelopment())
         //{
         //    app.UseDeveloperExceptionPage();
@@ -70,7 +87,7 @@ internal static class HostingExtensions
         app.UseErrorHandler();
 
         InitializeDatabase(app, configuration);
-        
+
         app.UseStaticFiles();
         app.UseRouting();
         app.UseIdentityServer();

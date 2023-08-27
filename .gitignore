@@ -674,3 +674,7 @@ tools/gulp-tasks/cldr/cldr-data/
 .husky/_
 
 /src/ZiraLink.IDS/log*.txt
+
+/src/ZiraLink.IDS/database**.db
+/src/ZiraLink.IDS/database**.db-wal
+/src/ZiraLink.IDS/database**.db-shm

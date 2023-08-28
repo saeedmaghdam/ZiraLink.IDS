@@ -48,6 +48,9 @@ internal static class HostingExtensions
         {
             // https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes#authorization-based-on-scopes
             options.EmitStaticAudienceClaim = true;
+
+            if (configuration["ASPNETCORE_ENVIRONMENT"] == "Test")
+                options.IssuerUri = new Uri(configuration["ZIRALINK_ISSUER_URL"]!).ToString();
         })
             .AddConfigurationStore(options =>
             {

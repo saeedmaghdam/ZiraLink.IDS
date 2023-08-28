@@ -6,6 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=database.db",
+        "ZIRALINK_ISSUER_URL": "https://ids.ziralink.local:5001",
         "ZIRALINK_API_URL": "https://api.ziralink.local:6001",
         "ZIRALINK_CLIENT_URL": "https://client.ziralink.local:8001",
         "ASPNETCORE_URLS": "https://ids.ziralink.local:5001",

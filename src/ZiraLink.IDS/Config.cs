@@ -48,8 +48,13 @@ public static class Config
                     IdentityServerConstants.StandardScopes.Email,
                     IdentityServerConstants.StandardScopes.Phone,
                     IdentityServerConstants.StandardScopes.Address,
+                    IdentityServerConstants.StandardScopes.OfflineAccess,
                     "ziralink"
-                }
+                },
+
+                AllowOfflineAccess = true,
+                RefreshTokenUsage = TokenUsage.ReUse,
+                RefreshTokenExpiration = TokenExpiration.Absolute
             },
             new Client
             {

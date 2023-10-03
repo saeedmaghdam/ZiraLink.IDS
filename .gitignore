@@ -678,4 +678,3 @@ tools/gulp-tasks/cldr/cldr-data/
 /src/ZiraLink.IDS/database**.db
 /src/ZiraLink.IDS/database**.db-wal
 /src/ZiraLink.IDS/database**.db-shm
-/src/ZiraLink.IDS/database**.db2

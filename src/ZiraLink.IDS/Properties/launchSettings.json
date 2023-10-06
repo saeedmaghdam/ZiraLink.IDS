@@ -6,11 +6,10 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=database.db",
-        "ZIRALINK_ISSUER_URL": "http://ids.ziralink.local:5002",
-        "ZIRALINK_API_URL": "http://api.ziralink.local:6002",
-        "ZIRALINK_CLIENT_URL": "http://client.ziralink.local:8002",
-        "ZIRALINK_USE_HTTP": "true",
-        "ASPNETCORE_URLS": "http://ids.ziralink.local:5002",
+        "ZIRALINK_ISSUER_URL": "https://ids.ziralink.local:5001",
+        "ZIRALINK_API_URL": "https://api.ziralink.local:6001",
+        "ZIRALINK_CLIENT_URL": "https://client.ziralink.local:8001",
+        "ASPNETCORE_URLS": "https://ids.ziralink.local:5001",
         "ASPNETCORE_HTTPS_PORT": "5001",
         "ASPNETCORE_Kestrel__Certificates__Default__Password": "zira_cert",
         "ASPNETCORE_Kestrel__Certificates__Default__Path": "server.pfx"

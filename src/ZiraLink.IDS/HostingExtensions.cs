@@ -25,7 +25,7 @@ internal static class HostingExtensions
         {
             ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) =>
             {
-                string expectedThumbprint = "10CE57B0083EBF09ED8E53CF6AC33D49B3A76414";
+                string expectedThumbprint = configuration["ZIRALINK_CERT_THUMBPRINT_LOCALHOST"]!;
                 if (certificate!.GetCertHashString() == expectedThumbprint)
                     return true;
 

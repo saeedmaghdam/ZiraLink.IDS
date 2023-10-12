@@ -1,43 +1,20 @@
 {
   "profiles": {
-    "SelfHost": {
+    "ZiraLink.IDS": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "ZIRALINK_CERT_THUMBPRINT_LOCALHOST": "29fb52c6a8d8cb95424f0d158d1047f9794b4ab6",
         "ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=database.db",
         "ZIRALINK_ISSUER_URL": "https://ids.ziralink.local:5001",
         "ZIRALINK_API_URL": "https://api.ziralink.local:6001",
         "ZIRALINK_CLIENT_URL": "https://client.ziralink.local:8001",
         "ASPNETCORE_URLS": "https://ids.ziralink.local:5001",
         "ASPNETCORE_HTTPS_PORT": "5001",
-        "ASPNETCORE_Kestrel__Certificates__Default__Password": "zira_cert",
-        "ASPNETCORE_Kestrel__Certificates__Default__Path": "server.pfx"
-      },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true,
-      "useSSL": true
-    },
-    "WSL": {
-      "commandName": "WSL2",
-      "launchBrowser": true,
-      "launchUrl": "https://localhost:5001",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ZIRALINK_CONNECTIONSTRINGS_DB": "Data Source=database.db",
-        "ZIRALINK_API_URL": "https://api.ziralink.local:6001",
-        "ZIRALINK_CLIENT_URL": "https://client.ziralink.local:8001",
-        "ASPNETCORE_URLS": "https://ids.ziralink.local:5001",
-        "ASPNETCORE_HTTPS_PORT": "5001",
-        "ASPNETCORE_Kestrel__Certificates__Default__Password": "zira_cert",
-        "ASPNETCORE_Kestrel__Certificates__Default__Path": "server.pfx"
-      },
-      "distributionName": ""
+        "ASPNETCORE_Kestrel__Certificates__Default__Password": "Hello#rt",
+        "ASPNETCORE_Kestrel__Certificates__Default__Path": "../../certs/s3d-local-ziralink-server.pfx"
+      }
     }
   }
 }
